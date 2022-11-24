@@ -74,7 +74,7 @@ CREATE TABLE `records` (
 - Once the tables are created you would need to add a admin account in the database using the username admin and password 21232f297a57a5a743894a0e4a801fc3 which is the word "admin" encrypted. The rest of the columns can be anything.
 
 - Finally just download the jar file and the LMA_Lib folder. Once downloaded extract the folder and copy the path to the folder.
-- Open command prompt and type --module-path "Path to LMA_lib file here" --add-modules javafx.controls,javafx.fxml,mysql-connector-j-8.0.31
+- Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to LMA_lib file here" --add-modules javafx.controls,javafx.fxml,javafx.graphics,mysql-connector-j-8.0.31 -jar LMA.jar
 - Press enter and the program should run
 
 # Snapshots
