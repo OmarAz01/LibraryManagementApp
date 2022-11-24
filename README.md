@@ -28,9 +28,12 @@ Notes:
 - There are no foreign keys
 
 # How to run
-- Download MySQL Workbench 8.0
-- Create a database named libraryappdb with root as the username and Root12345 as the password
-- Copy paste this into the database:
+- Download MySQL Workbench 8.0.31 here: https://dev.mysql.com/downloads/workbench/
+- Download MySQL Community Server v8.0.31 here: https://dev.mysql.com/downloads/mysql/
+- Download MySQL Connector here: https://dev.mysql.com/downloads/connector/j/
+- Download JavaFX 19 here: https://gluonhq.com/products/javafx/
+- Create a schema named libraryappdb with root as the username and Root12345 as the password
+- Copy paste this into the schema:
 
 CREATE TABLE `accounts` (
   `user_id` int NOT NULL AUTO_INCREMENT,
@@ -41,7 +44,7 @@ CREATE TABLE `accounts` (
   `password` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `material` (
   `material_id` int NOT NULL AUTO_INCREMENT,
@@ -53,7 +56,7 @@ CREATE TABLE `material` (
   `copies_tot` int DEFAULT NULL,
   `copies_avail` int DEFAULT NULL,
   PRIMARY KEY (`material_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `records` (
   `ref_num` varchar(125) NOT NULL,
@@ -71,10 +74,12 @@ CREATE TABLE `records` (
   PRIMARY KEY (`ref_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-- Once the tables are created you would need to add a admin account in the database using the username admin and password 21232f297a57a5a743894a0e4a801fc3 which is the word "admin" encrypted. The rest of the columns can be anything.
+- Once the tables are created you would need to add a admin account by pasting this:
+- INSERT INTO `libraryappdb`.`accounts` (`account_type`, `f_name`, `l_name`, `username`, `password`, `email`) VALUES ('Admin', 'admin', 'admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
+- This will create an admin account with username admin and password admin
 
-- Finally just download the jar file and the LMA_Lib folder. Once downloaded extract the folder and copy the path to the folder.
-- Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to LMA_lib file here" --add-modules javafx.controls,javafx.fxml,javafx.graphics,mysql-connector-j-8.0.31 -jar LMA.jar
+- Finally just download the jar file. Once downloaded open the javafx 19 folder that you downloaded earlier and copy the path to the lib folder.
+- Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
 - Press enter and the program should run
 
 # Snapshots
