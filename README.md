@@ -104,6 +104,8 @@ CREATE TABLE `records` (
 ![report](https://user-images.githubusercontent.com/118571302/203827750-42951642-c57b-4315-953a-306c91db858f.PNG)
 
 ## Admin/Librarian Add Page - Add/Remove/Update any material
+![addremove](https://user-images.githubusercontent.com/118571302/203828345-fe88c7af-6431-4bf9-8479-4b64fd431993.PNG)
+
 
 ## Admin Accounts Page - View/Update/Remove/Add any account (member, admnin, librarian)
 ![adminacc](https://user-images.githubusercontent.com/118571302/203827876-fd5821d0-b407-49be-b5e4-74c1b7cc7778.PNG)
