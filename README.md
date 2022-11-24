@@ -82,6 +82,12 @@ CREATE TABLE `records` (
 - Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
 - Press enter and the program should run
 
+### Note
+- Ive included a CSV file in the repo that you can use to populate the library material table. 
+- To do this you need to download the csv file, open MySQL Workbench, click on the libraryappdb schema, right click the on Tables, select Table Data Import Wizard, 
+import the csv file click next, select the material table, fix the destination columns, and press next.
+
+
 # Snapshots
 
 ## Main Screen
