@@ -1,6 +1,6 @@
 # LibraryManagementApp
 
-A windows application built using Java, MySQL, and SceneBuilder. The applicaiton is designed to do all librarian tasks such as handling user data, storing records, keeping track of catalog, and more.
+A windows application built using Java, JavaFX, and MySQL. The applicaiton is designed to do all librarian tasks such as handling user data, storing records, keeping track of catalog, and more.
 
 ## The different accounts
 1- Member
