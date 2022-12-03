@@ -37,6 +37,9 @@ public class Reserve_Material_Controller implements Initializable {
 	@FXML
 	private Label type_lbl;
 
+	@FXML
+	private Label isbn_lbl;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -60,6 +63,7 @@ public class Reserve_Material_Controller implements Initializable {
 			genre_lbl.setText(members_HP_controller.material.getGenre());
 			title_lbl.setText(members_HP_controller.material.getTitle());
 			type_lbl.setText(members_HP_controller.material.getMaterial_type());
+			isbn_lbl.setText(members_HP_controller.material.getIsbn());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,11 +73,12 @@ public class Reserve_Material_Controller implements Initializable {
 
 	private void confirmReserve(ActionEvent event) {
 
-		Records materialRecord = new Records(members_HP_controller.material, db.generateRefNum(), Main.currUser.getUser_id());
+		Records materialRecord = new Records(members_HP_controller.material, db.generateRefNum(),
+				Main.currUser.getUser_id());
 
 		if (db.checkIfReserved(materialRecord.getMaterial(), Main.currUser.getUser_id())) {
 
-			if (!db.checkIfReturned(materialRecord.getMaterial(), Main.currUser.getUser_id())) {
+			if (db.checkIfReturned(materialRecord.getMaterial(), Main.currUser.getUser_id())) {
 
 				if (members_HP_controller.material.getCopies_avail() >= 1) {
 

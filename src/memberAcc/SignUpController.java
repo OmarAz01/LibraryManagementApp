@@ -46,12 +46,18 @@ public class SignUpController implements Initializable {
 			public void handle(ActionEvent event) {
 
 				if (!tf_username.getText().trim().isEmpty() && !tf_password.getText().trim().isEmpty() && !tf_fname.getText().trim().isEmpty() && !tf_lname.getText().trim().isEmpty() && !tf_email.getText().trim().isEmpty()) {
-
-					try {
-						DB.signUp(event, tf_fname.getText(), tf_lname.getText(), tf_username.getText(), tf_password.getText(), tf_email.getText(), "Member");
-					} catch (NoSuchAlgorithmException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					if (tf_password.getText().length() > 6 && tf_password.getText().length() < 16) {		
+	
+						try {
+							DB.signUp(event, tf_fname.getText(), tf_lname.getText(), tf_username.getText(), tf_password.getText(), tf_email.getText(), "Member");
+						} catch (NoSuchAlgorithmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setContentText("Password Must Be Between 6 and 16 Characters");
+						alert.show();
 					}
 
 				}

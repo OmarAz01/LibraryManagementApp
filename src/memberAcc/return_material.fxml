@@ -8,80 +8,58 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0"
-	prefWidth="1024.0" style="-fx-background-color: #282A2D;"
-	xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="memberAcc.return_material_controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #282A2D;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="memberAcc.return_material_controller">
 	<center>
-		<VBox prefHeight="200.0" prefWidth="100.0"
-			BorderPane.alignment="CENTER">
+		<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
 			<children>
 				<AnchorPane prefHeight="69.0" prefWidth="1024.0">
 					<children>
-						<Label alignment="CENTER" prefHeight="65.0"
-							prefWidth="1024.0" style="-fx-background-color: #3C4043;"
-							text="Confirm Return" textFill="WHITE">
+						<Label alignment="CENTER" prefHeight="65.0" prefWidth="1024.0" style="-fx-background-color: #3C4043;" text="Confirm Return" textFill="WHITE">
 							<font>
 								<Font name="Arial Narrow" size="36.0" />
 							</font>
 						</Label>
 					</children>
 				</AnchorPane>
-				<AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="237.0" prefHeight="155.0" prefWidth="1024.0">
+               <children>
+                  <Label layoutX="150.0" layoutY="101.0" text="Material ID" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="materialID_lbl" alignment="CENTER" layoutX="478.0" layoutY="94.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="12.0" />
+               </padding>
+            </AnchorPane>
+				<AnchorPane prefHeight="92.0" prefWidth="1024.0">
 					<children>
-						<Label layoutX="149.0" layoutY="108.0" text="ISBN"
-							textFill="WHITE">
+						<Label layoutX="150.0" layoutY="33.0" text="ISBN" textFill="WHITE">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="25.0" />
 							</font>
 						</Label>
-						<Label fx:id="isbn_lbl" alignment="CENTER" layoutX="476.0"
-							layoutY="102.0" prefHeight="44.0" prefWidth="454.0"
-							style="-fx-background-color: #3C4043;" text="N/A"
-							textFill="WHITE">
+						<Label fx:id="isbn_lbl" alignment="CENTER" layoutX="478.0" layoutY="26.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
 							<font>
 								<Font size="25.0" />
 							</font>
 						</Label>
 					</children>
-					<padding>
-						<Insets bottom="12.0" />
-					</padding>
 				</AnchorPane>
 				<AnchorPane>
 					<children>
-						<Label layoutX="149.0" layoutY="29.0" text="Title"
-							textFill="WHITE">
+						<Label layoutX="150.0" layoutY="45.0" text="Title" textFill="WHITE">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="25.0" />
 							</font>
 						</Label>
-						<Label fx:id="title_lbl" alignment="CENTER" layoutX="476.0"
-							layoutY="22.0" prefHeight="44.0" prefWidth="454.0"
-							style="-fx-background-color: #3C4043;" text="N/A"
-							textFill="WHITE">
-							<font>
-								<Font size="25.0" />
-							</font>
-						</Label>
-					</children>
-					<padding>
-						<Insets bottom="12.0" top="12.0" />
-					</padding>
-				</AnchorPane>
-				<AnchorPane>
-					<children>
-						<Label layoutX="149.0" layoutY="18.0" text="Author"
-							textFill="WHITE">
-							<font>
-								<Font name="Arial Rounded MT Bold" size="25.0" />
-							</font>
-						</Label>
-						<Label fx:id="author_lbl" alignment="CENTER" layoutX="476.0"
-							layoutY="12.0" prefHeight="44.0" prefWidth="454.0"
-							style="-fx-background-color: #3C4043;" text="N/A"
-							textFill="WHITE">
+						<Label fx:id="title_lbl" alignment="CENTER" layoutX="478.0" layoutY="38.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
 							<font>
 								<Font size="25.0" />
 							</font>
@@ -93,16 +71,29 @@
 				</AnchorPane>
 				<AnchorPane>
 					<children>
-						<Label layoutX="149.0" layoutY="20.0" text="Due Date"
-							textFill="WHITE">
+						<Label layoutX="150.0" layoutY="19.0" text="Author" textFill="WHITE">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="25.0" />
 							</font>
 						</Label>
-						<Label fx:id="due_date_lbl" alignment="CENTER"
-							layoutX="476.0" layoutY="14.0" prefHeight="44.0"
-							prefWidth="454.0" style="-fx-background-color: #3C4043;"
-							text="N/A" textFill="WHITE">
+						<Label fx:id="author_lbl" alignment="CENTER" layoutX="478.0" layoutY="12.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
+							<font>
+								<Font size="25.0" />
+							</font>
+						</Label>
+					</children>
+					<padding>
+						<Insets bottom="12.0" top="12.0" />
+					</padding>
+				</AnchorPane>
+				<AnchorPane>
+					<children>
+						<Label layoutX="150.0" layoutY="21.0" text="Due Date" textFill="WHITE">
+							<font>
+								<Font name="Arial Rounded MT Bold" size="25.0" />
+							</font>
+						</Label>
+						<Label fx:id="due_date_lbl" alignment="CENTER" layoutX="478.0" layoutY="14.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
 							<font>
 								<Font size="25.0" />
 							</font>
@@ -114,16 +105,12 @@
 				</AnchorPane>
 				<AnchorPane prefHeight="69.0" prefWidth="1024.0">
 					<children>
-						<Label layoutX="149.0" layoutY="14.0" text="Fee"
-							textFill="WHITE">
+						<Label layoutX="150.0" layoutY="20.0" text="Fee" textFill="WHITE">
 							<font>
 								<Font name="Arial Rounded MT Bold" size="25.0" />
 							</font>
 						</Label>
-						<Label fx:id="fee_lbl" alignment="CENTER" layoutX="476.0"
-							layoutY="13.0" prefHeight="44.0" prefWidth="454.0"
-							style="-fx-background-color: #3C4043;" text="N/A"
-							textFill="WHITE">
+						<Label fx:id="fee_lbl" alignment="CENTER" layoutX="478.0" layoutY="13.0" prefHeight="44.0" prefWidth="454.0" style="-fx-background-color: #3C4043;" text="N/A" textFill="WHITE">
 							<font>
 								<Font size="25.0" />
 							</font>
@@ -135,9 +122,7 @@
 				</AnchorPane>
 				<AnchorPane prefHeight="200.0" prefWidth="200.0">
 					<children>
-						<Button fx:id="return_btn" layoutX="327.0" layoutY="64.0"
-							mnemonicParsing="false" prefHeight="52.0" prefWidth="370.0"
-							text="Return">
+						<Button fx:id="return_btn" layoutX="327.0" layoutY="26.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="370.0" text="Return">
 							<font>
 								<Font size="25.0" />
 							</font>

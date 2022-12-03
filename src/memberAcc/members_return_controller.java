@@ -126,7 +126,7 @@ public class members_return_controller implements Initializable {
 
 		try {
 			
-			ps = dbConnect.prepareStatement("SELECT * FROM records WHERE user_id = '" + Main.currUser.getUser_id() + "' AND returned_date IS NULL AND issued_date IS NOT NULL;");
+			ps = dbConnect.prepareStatement("SELECT * FROM records WHERE user_id = '" + Main.currUser.getUser_id() + "' AND (returned_date IS NULL AND issued_date IS NOT NULL);");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

@@ -44,34 +44,45 @@ public class admin_add_acc_controller implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 
-				if (!tf_accType.getText().trim().isEmpty() && !tf_username.getText().trim().isEmpty() && !tf_email.getText().trim().isEmpty() && !tf_fName.getText().trim().isEmpty() && !tf_lName.getText().trim().isEmpty()
-						&& !pf_password.getText().trim().isEmpty()) {
+				if (!tf_accType.getText().trim().isEmpty() && !tf_username.getText().trim().isEmpty()
+						&& !tf_email.getText().trim().isEmpty() && !tf_fName.getText().trim().isEmpty()
+						&& !tf_lName.getText().trim().isEmpty() && !pf_password.getText().trim().isEmpty()) {
 
-					if (tf_accType.getText().toLowerCase().equals("member") || tf_accType.getText().toLowerCase().equals("librarian") || tf_accType.getText().toLowerCase().equals("admin")) {
+					if (tf_accType.getText().toLowerCase().equals("member")
+							|| tf_accType.getText().toLowerCase().equals("librarian")
+							|| tf_accType.getText().toLowerCase().equals("admin")) {
+						
+						if (pf_password.getText().length() > 6 && pf_password.getText().length() < 16) {
+							
 
-						// Formats account type
-						String acctype = tf_accType.getText().toLowerCase();
-						acctype = acctype.substring(0, 1).toUpperCase() + acctype.substring(1);
+							// Formats account type
+							String acctype = tf_accType.getText().toLowerCase();
+							acctype = acctype.substring(0, 1).toUpperCase() + acctype.substring(1);
 
-						try {
-							if (DB.addAccount(acctype, tf_fName.getText(), tf_lName.getText(), tf_username.getText(), pf_password.getText(), tf_email.getText())) {
-
-								Alert alert = new Alert(Alert.AlertType.INFORMATION);
-								alert.setContentText("Account Successfully Added!");
-								alert.show();
-
+							try {
+								if (DB.addAccount(acctype, tf_fName.getText(), tf_lName.getText(), tf_username.getText(),
+										pf_password.getText(), tf_email.getText())) {
+	
+									Alert alert = new Alert(Alert.AlertType.INFORMATION);
+									alert.setContentText("Account Successfully Added!");
+									alert.show();
+	
+								} else {
+	
+									Alert alert = new Alert(Alert.AlertType.ERROR);
+									alert.setContentText("Something Went Wrong");
+									alert.show();
+	
+								}
+							} catch (NoSuchAlgorithmException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-
-							else {
-
-								Alert alert = new Alert(Alert.AlertType.ERROR);
-								alert.setContentText("Something Went Wrong");
-								alert.show();
-
-							}
-						} catch (NoSuchAlgorithmException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						} else {
+							Alert alert = new Alert(Alert.AlertType.ERROR);
+							alert.setContentText("Password Must Be Between 6 and 16 Characters");
+							alert.show();
+							
 						}
 
 					} else {

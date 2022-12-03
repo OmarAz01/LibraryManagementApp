@@ -36,20 +36,34 @@ public class changePass_controller implements Initializable {
 
 			@Override
 			public void handle(ActionEvent event) {
+				
+				if (!newPass_tf.getText().trim().isEmpty() && !tf_username.getText().trim().isEmpty() && !oldPass_tf.getText().trim().isEmpty()) {
+					
+					if (newPass_tf.getText().length() > 6 && newPass_tf.getText().length() < 16) {
 
-				try {
-					if (DB.changePass(tf_username.getText(), oldPass_tf.getText(), newPass_tf.getText())) {
-
-						Alert alert = new Alert(Alert.AlertType.INFORMATION);
-						alert.setContentText("Successfully Changed Password");
+						try {
+							if (DB.changePass(tf_username.getText(), oldPass_tf.getText(), newPass_tf.getText())) {
+		
+								Alert alert = new Alert(Alert.AlertType.INFORMATION);
+								alert.setContentText("Successfully Changed Password");
+								alert.show();
+		
+								DB.changeScene(event, "/application/application.fxml", "LMA");
+		
+							}
+						} catch (NoSuchAlgorithmException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else {
+						Alert alert = new Alert(Alert.AlertType.ERROR);
+						alert.setContentText("Password Must Be Between 6 and 16 Characters");
 						alert.show();
-
-						DB.changeScene(event, "/application/application.fxml", "LMA");
-
 					}
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} else {
+					Alert alert = new Alert(Alert.AlertType.ERROR);
+					alert.setContentText("Input All Fields");
+					alert.show();
 				}
 
 			}

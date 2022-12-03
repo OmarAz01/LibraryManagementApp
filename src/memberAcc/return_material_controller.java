@@ -20,6 +20,9 @@ public class return_material_controller implements Initializable {
 
 	@FXML
 	private Label author_lbl;
+	
+	@FXML
+	private Label materialID_lbl;
 
 	@FXML
 	private Label due_date_lbl;
@@ -50,6 +53,7 @@ public class return_material_controller implements Initializable {
 			fee_lbl.setText(String.valueOf(DB.getFee(members_return_controller.records.getRef_num())));
 			isbn_lbl.setText(String.valueOf(members_return_controller.records.getIsbn()));
 			title_lbl.setText(members_return_controller.records.getMaterial_title());
+			materialID_lbl.setText(String.valueOf(members_return_controller.records.getMaterial_id()));
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -46,7 +46,8 @@ public class DB {
 
 	}
 
-	public static void signUp(ActionEvent event, String f_Name, String l_Name, String username, String password, String email, String accType) throws NoSuchAlgorithmException {
+	public static void signUp(ActionEvent event, String f_Name, String l_Name, String username, String password,
+			String email, String accType) throws NoSuchAlgorithmException {
 
 		Connection connection = null;
 		PreparedStatement psInsert = null;
@@ -56,8 +57,9 @@ public class DB {
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			
-			// Prevents multiple of the same username from being created by checking if username exists
+
+			// Prevents multiple of the same username from being created by checking if
+			// username exists
 			psCheckUser = connection.prepareStatement("SELECT * FROM accounts WHERE username = '" + username + "';");
 			resultSet = psCheckUser.executeQuery();
 
@@ -70,7 +72,8 @@ public class DB {
 			else {
 				String encryptedPass = md5Encrypt.encryptPass(password);
 
-				psInsert = connection.prepareStatement("INSERT INTO accounts (account_type, f_name, l_name, username, password, email) VALUES (?, ?, ?, ?, ?, ?)");
+				psInsert = connection.prepareStatement(
+						"INSERT INTO accounts (account_type, f_name, l_name, username, password, email) VALUES (?, ?, ?, ?, ?, ?)");
 				psInsert.setString(1, accType);
 				psInsert.setString(2, f_Name);
 				psInsert.setString(3, l_Name);
@@ -129,7 +132,8 @@ public class DB {
 
 	}
 
-	public static boolean changePass(String username, String oldPassword, String newPassword) throws NoSuchAlgorithmException {
+	public static boolean changePass(String username, String oldPassword, String newPassword)
+			throws NoSuchAlgorithmException {
 
 		Connection connection = null;
 		PreparedStatement psCheckMatch = null;
@@ -144,12 +148,14 @@ public class DB {
 
 			if (rs.next()) {
 
-				// Encrypts old password and checks if it matches the password in the db because MD5 doesnt have a way to decrypt
+				// Encrypts old password and checks if it matches the password in the db because
+				// MD5 doesnt have a way to decrypt
 				String encryptOld = md5Encrypt.encryptPass(oldPassword);
 				if (encryptOld.equals(rs.getString("password"))) {
 
 					String encryptedPass = md5Encrypt.encryptPass(newPassword);
-					psChangePass = connection.prepareStatement("UPDATE accounts SET password = '" + encryptedPass + "' WHERE username = '" + username + "';");
+					psChangePass = connection.prepareStatement("UPDATE accounts SET password = '" + encryptedPass
+							+ "' WHERE username = '" + username + "';");
 					psChangePass.executeUpdate();
 
 					return true;
@@ -209,18 +215,21 @@ public class DB {
 				}
 			}
 			if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
 	}
 
-	public static Accounts logIn(ActionEvent event, String userName, String password, String accType) throws NoSuchAlgorithmException {
+	public static Accounts logIn(ActionEvent event, String userName, String password, String accType)
+			throws NoSuchAlgorithmException {
+
+		updateReservation();
 
 		Accounts acc = null;
 
@@ -232,7 +241,8 @@ public class DB {
 
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			preparedStatement = connection.prepareStatement("SELECT password FROM accounts WHERE username = '" + userName + "' AND account_type = '" + accType + "';");
+			preparedStatement = connection.prepareStatement("SELECT password FROM accounts WHERE username = '"
+					+ userName + "' AND account_type = '" + accType + "';");
 			resultSet = preparedStatement.executeQuery();
 
 			// If username doesnt exist error displays
@@ -243,7 +253,8 @@ public class DB {
 
 			}
 
-			// If username does exist it encrypts the password then checks if it matches the one in the db because MD5 doesnt have a way to decrypt
+			// If username does exist it encrypts the password then checks if it matches the
+			// one in the db because MD5 doesnt have a way to decrypt
 			else {
 				while (resultSet.next()) {
 					String retrievedPassword = resultSet.getString("password");
@@ -359,7 +370,9 @@ public class DB {
 
 			if (rs.next()) {
 
-				currUser = new Accounts(rs.getInt("user_id"), rs.getString("account_type"), rs.getString("f_name"), rs.getString("l_name"), rs.getString("username"), rs.getString("password"), rs.getString("email"));
+				currUser = new Accounts(rs.getInt("user_id"), rs.getString("account_type"), rs.getString("f_name"),
+						rs.getString("l_name"), rs.getString("username"), rs.getString("password"),
+						rs.getString("email"));
 
 			}
 
@@ -407,38 +420,41 @@ public class DB {
 	}
 
 	public static boolean cancelReserve(Records record) {
-		
+
 		Connection connection = null;
 		PreparedStatement psUpdateRecord = null;
 		PreparedStatement psGetMaterial = null;
 		PreparedStatement psUpdateMaterial = null;
 		ResultSet rsMaterial = null;
-		
+
 		int numCopies = 0;
-		
+
 		if (record.getReturned_date() == null || !record.getReturned_date().equals("Cancelled")) {
-			
-		
+
 			try {
-				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-				psUpdateRecord = connection.prepareStatement("UPDATE records SET returned_date = 'Cancelled', issued_date = 'Cancelled' WHERE ref_num = '" + record.getRef_num() + "';");
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root",
+						"Root12345");
+				psUpdateRecord = connection.prepareStatement(
+						"UPDATE records SET returned_date = 'Cancelled', issued_date = 'Cancelled' WHERE ref_num = '"
+								+ record.getRef_num() + "';");
 				psUpdateRecord.executeUpdate();
-				psGetMaterial = connection.prepareStatement("SELECT copies_avail FROM material WHERE material_id = '" + record.getMaterial_id() + "';");
+				psGetMaterial = connection.prepareStatement(
+						"SELECT copies_avail FROM material WHERE material_id = '" + record.getMaterial_id() + "';");
 				rsMaterial = psGetMaterial.executeQuery();
-				
+
 				if (rsMaterial.next()) {
 					numCopies = rsMaterial.getInt("copies_avail");
 					numCopies += 1;
 				}
 
-				psUpdateMaterial = connection.prepareStatement("UPDATE material SET copies_avail = '" + numCopies + "' WHERE material_id = '" + record.getMaterial_id() + "';");
+				psUpdateMaterial = connection.prepareStatement("UPDATE material SET copies_avail = '" + numCopies
+						+ "' WHERE material_id = '" + record.getMaterial_id() + "';");
 				psUpdateMaterial.executeUpdate();
-				
+
 				record.setReturned_date("Cancelled");
-			
+
 				return true;
 
-			
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
@@ -484,14 +500,13 @@ public class DB {
 					}
 				}
 			}
-		}
-		else {
-			
+		} else {
+
 			return false;
 		}
-		
+
 	}
-	
+
 	public Boolean returnMaterial(Records records) {
 
 		Connection connection = null;
@@ -509,14 +524,17 @@ public class DB {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
 
-			psCheckReturn = connection.prepareStatement("SELECT * FROM records WHERE ref_num = '" + records.getRef_num() + "' AND returned_date = 'Requested'");
+			psCheckReturn = connection.prepareStatement("SELECT * FROM records WHERE ref_num = '" + records.getRef_num()
+					+ "' AND returned_date = 'Requested'");
 			rsReturned = psCheckReturn.executeQuery();
 
 			if (rsReturned.isBeforeFirst()) {
-				psUpdateRecord = connection.prepareStatement("UPDATE records SET returned_date = '" + LocalDate.now().toString() + "' WHERE ref_num = '" + records.getRef_num() + "';");
+				psUpdateRecord = connection.prepareStatement("UPDATE records SET returned_date = '"
+						+ LocalDate.now().toString() + "' WHERE ref_num = '" + records.getRef_num() + "';");
 				psUpdateRecord.executeUpdate();
 
-				psCopies = connection.prepareStatement("SELECT copies_avail FROM material WHERE material_id = '" + records.getMaterial_id() + "';");
+				psCopies = connection.prepareStatement(
+						"SELECT copies_avail FROM material WHERE material_id = '" + records.getMaterial_id() + "';");
 				rs = psCopies.executeQuery();
 
 				if (rs.next()) {
@@ -524,7 +542,8 @@ public class DB {
 					numCopies += 1;
 				}
 
-				psUpdateMaterial = connection.prepareStatement("UPDATE material SET copies_avail = '" + numCopies + "' WHERE material_id = '" + records.getMaterial_id() + "';");
+				psUpdateMaterial = connection.prepareStatement("UPDATE material SET copies_avail = '" + numCopies
+						+ "' WHERE material_id = '" + records.getMaterial_id() + "';");
 				psUpdateMaterial.executeUpdate();
 			}
 
@@ -534,7 +553,7 @@ public class DB {
 
 			return false;
 		} finally {
-			
+
 			if (rsReturned != null) {
 				try {
 					rsReturned.close();
@@ -543,7 +562,7 @@ public class DB {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (rs != null) {
 				try {
 					rs.close();
@@ -552,7 +571,7 @@ public class DB {
 					e.printStackTrace();
 				}
 			}
-			
+
 			if (psCheckReturn != null) {
 				try {
 					psCheckReturn.close();
@@ -603,45 +622,91 @@ public class DB {
 		return returnM;
 	}
 
-	public static boolean updateAccount(Accounts account) {
+	public static boolean updateAccount(Accounts account, String password) {
 
 		Connection connection = null;
 		PreparedStatement psUpdate = null;
 
-		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			psUpdate = connection.prepareStatement("UPDATE accounts SET f_name = '" + account.getF_name() + "', l_name = '" + account.getL_name() + "', username = '" + account.getUsername() + "', email = '" + account.getEmail()
-					+ "' WHERE user_id = '" + account.getUser_id() + "';");
-			psUpdate.executeUpdate();
+		if (!password.isEmpty()) {
+			String encryptedPass = md5Encrypt.encryptPass(password);
+			try {
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root",
+						"Root12345");
+				psUpdate = connection.prepareStatement("UPDATE accounts SET f_name = '" + account.getF_name()
+						+ "', l_name = '" + account.getL_name() + "', username = '" + account.getUsername()
+						+ "', email = '" + account.getEmail() + "', password = '" + encryptedPass
+						+ "' WHERE user_id = '" + account.getUser_id() + "';");
+				psUpdate.executeUpdate();
 
-			return true;
+				return true;
 
-		} catch (SQLException e) {
+			} catch (SQLException e) {
 
-			e.printStackTrace();
-			return false;
-		} finally {
-			if (psUpdate != null) {
+				e.printStackTrace();
+				return false;
+			} finally {
+				if (psUpdate != null) {
 
-				try {
-					psUpdate.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try {
+						psUpdate.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-			}
-			if (connection != null) {
+				if (connection != null) {
 
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+
 			}
 
 		}
 
+		else {
+
+			try {
+				connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root",
+						"Root12345");
+				psUpdate = connection.prepareStatement("UPDATE accounts SET f_name = '" + account.getF_name()
+						+ "', l_name = '" + account.getL_name() + "', username = '" + account.getUsername()
+						+ "', email = '" + account.getEmail() + "' WHERE user_id = '" + account.getUser_id() + "';");
+				psUpdate.executeUpdate();
+
+				return true;
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+				return false;
+			} finally {
+				if (psUpdate != null) {
+
+					try {
+						psUpdate.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (connection != null) {
+
+					try {
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+
+		}
 	}
 
 	public static boolean updateMaterial(Material material) {
@@ -652,8 +717,10 @@ public class DB {
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			psUpdate = connection.prepareStatement("UPDATE material SET title = '" + material.getTitle() + "', author = '" + material.getAuthor() + "', genre = '" + material.getGenre() + "', isbn = '" + material.getIsbn() + "', copies_tot = '"
-					+ material.getCopies_tot() + "', copies_avail = '" + material.getCopies_avail() + "' WHERE material_id = '" + material.getMaterial_id() + "';");
+			psUpdate = connection.prepareStatement("UPDATE material SET title = '" + material.getTitle()
+					+ "', author = '" + material.getAuthor() + "', genre = '" + material.getGenre() + "', isbn = '"
+					+ material.getIsbn() + "', copies_tot = '" + material.getCopies_tot() + "', copies_avail = '"
+					+ material.getCopies_avail() + "' WHERE material_id = '" + material.getMaterial_id() + "';");
 			psUpdate.executeUpdate();
 
 			return true;
@@ -685,7 +752,8 @@ public class DB {
 		return false;
 	}
 
-	public static boolean addAccount(String acctype, String fName, String lName, String username, String password, String email) throws NoSuchAlgorithmException {
+	public static boolean addAccount(String acctype, String fName, String lName, String username, String password,
+			String email) throws NoSuchAlgorithmException {
 
 		Connection connection = null;
 		PreparedStatement psAdd = null;
@@ -696,7 +764,8 @@ public class DB {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
 
-			psCheckUsername = connection.prepareStatement("SELECT * FROM accounts WHERE username = '" + username + "';");
+			psCheckUsername = connection
+					.prepareStatement("SELECT * FROM accounts WHERE username = '" + username + "';");
 			rs = psCheckUsername.executeQuery();
 
 			if (rs.isBeforeFirst()) {
@@ -709,7 +778,8 @@ public class DB {
 			} else {
 				String encryptedPass = md5Encrypt.encryptPass(password);
 
-				psAdd = connection.prepareStatement("INSERT INTO accounts (account_type, f_name, l_name, username, password, email) VALUES (?, ?, ?, ?, ?, ?)");
+				psAdd = connection.prepareStatement(
+						"INSERT INTO accounts (account_type, f_name, l_name, username, password, email) VALUES (?, ?, ?, ?, ?, ?)");
 				psAdd.setString(1, acctype);
 				psAdd.setString(2, fName);
 				psAdd.setString(3, lName);
@@ -774,21 +844,22 @@ public class DB {
 		PreparedStatement psAdd = null;
 		ResultSet rs = null;
 
-		
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			
-			psCheck = connection.prepareStatement("SELECT * FROM material WHERE title = '" + material.getTitle() + "' AND author = '" + material.getAuthor() + "';");
+
+			psCheck = connection.prepareStatement("SELECT * FROM material WHERE title = '" + material.getTitle()
+					+ "' AND author = '" + material.getAuthor() + "';");
 			rs = psCheck.executeQuery();
-			
+
 			if (rs.next()) {
-				
+
 				return false;
 			}
-			
+
 			else {
-				psAdd = connection.prepareStatement("INSERT INTO material (title, author, material_type, genre, isbn, copies_tot, copies_avail) VALUES (?, ?, ?, ?, ?, ?, ?)");
+				psAdd = connection.prepareStatement(
+						"INSERT INTO material (title, author, material_type, genre, isbn, copies_tot, copies_avail) VALUES (?, ?, ?, ?, ?, ?, ?)");
 				psAdd.setString(1, material.getTitle());
 				psAdd.setString(2, material.getAuthor());
 				psAdd.setString(3, material.getMaterial_type());
@@ -840,7 +911,8 @@ public class DB {
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			psAddRecord = connection.prepareStatement("INSERT INTO records (ref_num, user_id, acc_type, material_id, material_type, material_title, material_author, ISBN, reserved_date, due_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			psAddRecord = connection.prepareStatement(
+					"INSERT INTO records (ref_num, user_id, acc_type, material_id, material_type, material_title, material_author, ISBN, reserved_date, due_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			psAddRecord.setString(1, generateRefNum());
 			psAddRecord.setInt(2, materialRecord.getUser_id());
 			psAddRecord.setString(3, materialRecord.getAcc_type());
@@ -854,7 +926,8 @@ public class DB {
 			psAddRecord.executeUpdate();
 
 			copiesCnt -= 1;
-			psUpdateCopies = connection.prepareStatement("UPDATE material SET copies_avail = '" + copiesCnt + "' WHERE material_id = '" + materialRecord.getMaterial().getMaterial_id() + "' ;");
+			psUpdateCopies = connection.prepareStatement("UPDATE material SET copies_avail = '" + copiesCnt
+					+ "' WHERE material_id = '" + materialRecord.getMaterial().getMaterial_id() + "' ;");
 			psUpdateCopies.executeUpdate();
 
 			members_HP_controller.material.setCopies_avail(copiesCnt);
@@ -906,19 +979,29 @@ public class DB {
 		Connection connection = null;
 		PreparedStatement psCheckReturn = null;
 		ResultSet rs = null;
-		boolean returned = false;
 
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			psCheckReturn = connection.prepareStatement(
-					"SELECT * FROM records WHERE user_id = '" + user_id + "' AND material_id = '" + material.getMaterial_id() + "' AND returned_date IS NULL OR returned_date = '' OR returned_date = ' ' OR returned_date = 'Requested';");
+			psCheckReturn = connection.prepareStatement("SELECT * FROM records WHERE (user_id = '" + user_id
+					+ "' AND material_id = '" + material.getMaterial_id()
+					+ "') AND (returned_date IS NULL OR returned_date = 'Requested');");
 			rs = psCheckReturn.executeQuery();
 
-			returned = rs.next();
+			if (rs.next()) {
+				return false;
+			}
 
-		} catch (Exception e) {
+			else {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText("An Error Ocurred. Please Try Again");
+			alert.show();
 			e.printStackTrace();
+			return false;
 		} finally {
 
 			if (rs != null) {
@@ -953,8 +1036,6 @@ public class DB {
 
 		}
 
-		return returned;
-
 	}
 
 	// Prevents user from reserving material more than once
@@ -968,7 +1049,8 @@ public class DB {
 		try {
 
 			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
-			psCheckReserved = connection.prepareStatement("SELECT * FROM records WHERE material_id = '" + material.getMaterial_id() + "' AND user_id = '" + user_id + "' AND reserved_date IS NOT NULL;");
+			psCheckReserved = connection.prepareStatement("SELECT * FROM records WHERE material_id = '"
+					+ material.getMaterial_id() + "' AND user_id = '" + user_id + "' AND reserved_date IS NOT NULL;");
 			rs = psCheckReserved.executeQuery();
 			reserved = rs.next();
 
@@ -1009,6 +1091,78 @@ public class DB {
 
 		return reserved;
 
+	}
+
+	public static void updateReservation() {
+
+		Connection connection = null;
+		PreparedStatement ps = null;
+		PreparedStatement psRemove = null;
+		ResultSet rs = null;
+
+		try {
+
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/libraryappdb", "root", "Root12345");
+			ps = connection
+					.prepareStatement("SELECT * FROM records WHERE reserved_date IS NOT NULL AND issued_date IS NULL");
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				String refNum = rs.getString("ref_num");
+				String temp = rs.getString("reserved_date");
+				String reservedDate = temp.replaceAll("\\-", "");
+				String temp2 = LocalDate.now().toString();
+				String currDate = temp2.replaceAll("\\-", "");
+				int intReservedDate = Integer.valueOf(reservedDate);
+				int intCurrDate = Integer.valueOf(currDate);
+
+				int daysPassed = intCurrDate - intReservedDate;
+				System.out.println(daysPassed);
+
+				if (daysPassed > 15) {
+					psRemove = connection.prepareStatement("DELETE FROM records WHERE ref_num = '" + refNum + "';");
+					psRemove.executeUpdate();
+
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (psRemove != null) {
+				try {
+					psRemove.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public static Double getFee(String refNum) {
