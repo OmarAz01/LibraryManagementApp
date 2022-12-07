@@ -1,6 +1,6 @@
 # LibraryManagementApp
 
-A windows application built using Java, JavaFX, and MySQL. The applicaiton is designed to do all librarian tasks such as handling user data, storing records, keeping track of catalog, and more.
+A windows application built using Java, JavaFX, and MySQL. The application is designed to do all librarian tasks such as handling user data, storing records, keeping track of catalog, and more.
 
 ## The different accounts
 1- Member
@@ -14,7 +14,7 @@ Librarians can login or change their password from the login page. Once logged i
 Admins can login or change their password from the login page. Once logged in they have access to all librarian features with the addition of being able to add/remove/update user accounts.
 
 ## The Database
-The database consists of three tables; accounts, material, and records.
+The database consists of three tables: accounts, material, and records.
 
 The material table holds the columns material_id, title, author, material_type, genre, isbn, copies_tot, copies_avail
 
@@ -33,7 +33,7 @@ Notes:
 - Download MySQL Connector here: https://dev.mysql.com/downloads/connector/j/
 - Download JavaFX 19 here: https://gluonhq.com/products/javafx/
 - Create a schema named libraryappdb with root as the username and Root12345 as the password
-- Copy paste this into the schema:
+- Copy and paste this into the schema:
 
 CREATE TABLE `accounts` (
   `user_id` int NOT NULL AUTO_INCREMENT,
@@ -78,56 +78,88 @@ CREATE TABLE `records` (
 - INSERT INTO `libraryappdb`.`accounts` (`account_type`, `f_name`, `l_name`, `username`, `password`, `email`) VALUES ('Admin', 'admin', 'admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
 - This will create an admin account with username admin and password admin
 
-- Finally just download the jar file. Once downloaded open the javafx 19 folder that you downloaded earlier and copy the path to the lib folder.
+- Finally, just download the jar file. Once downloaded open the javafx 19 folder that you downloaded earlier and copy the path to the lib folder.
 - Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
 - Press enter and the program should run
 
 ### Note
-- Ive included a CSV file in the repo that you can use to populate the library material table. 
+- I’ve included a CSV file in the repo that you can use to populate the library material table. 
 - To do this you need to download the csv file, open MySQL Workbench, click on the libraryappdb schema, right click the on Tables, select Table Data Import Wizard, 
-import the csv file click next, select the material table, fix the destination columns, and press next.
+import the CSV file click next, select the material table, fix the destination columns, and press next.
 
 
 # Snapshots
 
-## Main Screen
-![mainScreen](https://user-images.githubusercontent.com/118571302/203827055-c699c462-d18b-4c59-ae14-62efe94433e3.PNG)
+## Main Page
+![Main](https://user-images.githubusercontent.com/118571302/206301719-a6835bc5-75e1-4391-8420-81b5e8cba7f4.PNG)
 
-## Login Screen
-![loginScreen](https://user-images.githubusercontent.com/118571302/203827099-3ee7e0fb-7384-4db9-93c7-c432cc04d32f.PNG)
+## Login Page
+![Login](https://user-images.githubusercontent.com/118571302/206301771-ff8cbaa4-4599-4809-97fd-7cf97f201d98.PNG)
 
-## Members Home Page - Double click on item to reserve
-![membersReserve](https://user-images.githubusercontent.com/118571302/203827241-231d6532-6ecd-4037-a62b-bb085aff9f0b.PNG)
+## Members Register Page - Only members can register for an account
+![Register](https://user-images.githubusercontent.com/118571302/206302111-40caa0d3-2896-43e7-9fc6-6026b5cbe662.PNG)
 
-## Members Return Page - Once an item is issued you can return by double clicking on it 
-![membersReturn](https://user-images.githubusercontent.com/118571302/203827331-6889792a-b5e8-449e-8e90-d2d26af19d17.PNG)
+## Change Password Page
+![ChangePass](https://user-images.githubusercontent.com/118571302/206302292-48f967a4-018a-4146-a69a-750358cf6de4.PNG)
 
-## Members History Page - View your history and cancel a reserve if it has not been issued yet
-![membersHistory](https://user-images.githubusercontent.com/118571302/203827434-7de81158-f6db-4aba-9b1f-845e3cbd7f79.PNG)
+## Members Home Page - Browse the catalog
+![membersHome](https://user-images.githubusercontent.com/118571302/206302363-2d7c0371-f785-4426-bdaa-e8dde582aca3.PNG)
 
-## Librarian/Admin Home Page - View item history by double clicking on it
-![librarian_adminHP](https://user-images.githubusercontent.com/118571302/203827550-995e2f34-f049-4a02-935f-e3940fd0ffe4.PNG)
+## Members Confirm Reservation Page - Reserve an item by double clicking on it
+![membersConfirmReserve](https://user-images.githubusercontent.com/118571302/206302483-4776108d-cfb9-4277-9f11-47d510595825.PNG)
 
-## Librarian/Admin Returns Page - View requested returns and return them by double clicking
-![adminReturns](https://user-images.githubusercontent.com/118571302/203827638-b4261a60-b939-4dc5-8e69-fe63a783937a.PNG)
+## Members Return Page - View all items eligible for a return
+![membersReturnPG](https://user-images.githubusercontent.com/118571302/206302577-0ada2339-c769-48ed-8770-338659d5266f.PNG)
 
-## Librarian/Admin Report Page - View history of any member account by double clicking
-![report](https://user-images.githubusercontent.com/118571302/203827750-42951642-c57b-4315-953a-306c91db858f.PNG)
+## Members Confirm Return Page - Return an item by double clicking on it
+![membersReturn](https://user-images.githubusercontent.com/118571302/206302665-3ba74873-60b7-4efe-8bb1-c0e58690de7d.PNG)
 
-## Admin/Librarian Add Page - Add/Remove/Update any material
-![addremove](https://user-images.githubusercontent.com/118571302/203828345-fe88c7af-6431-4bf9-8479-4b64fd431993.PNG)
+## Members History Page - View all your history
+![memberHistory](https://user-images.githubusercontent.com/118571302/206302752-e6fde745-fc26-4f04-b110-9be6bdd8c7a5.PNG)
 
+## Members Cancel Reserve Page - Cancel an item from history page if it has not been issued out yet
+![cancelReserve](https://user-images.githubusercontent.com/118571302/206302853-7893a93e-b985-497b-9ee3-89d971eabad4.PNG)
 
-## Admin Accounts Page - View/Update/Remove/Add any account (member, admnin, librarian)
-![adminacc](https://user-images.githubusercontent.com/118571302/203827876-fd5821d0-b407-49be-b5e4-74c1b7cc7778.PNG)
+## Librarians/Admins Home Page - Browse the catalog
+![librarians-adminHome](https://user-images.githubusercontent.com/118571302/206302979-21a96e65-8d35-48c6-bd4e-325b39f7b48e.PNG)
 
+## Librarians/Admin History Page – Double-click on an item to view that items history
+![libradminMatHistory](https://user-images.githubusercontent.com/118571302/206303166-31e27272-c337-4747-94b4-a7ee7c3b825a.PNG)
 
+## Librarians/Admin Check Returns Page - View all items that have been requested to return
+![librarian-adminReturns](https://user-images.githubusercontent.com/118571302/206303312-f689f2d1-3552-4070-9975-89395fab3722.PNG)
 
+## Librarians/Admin Confirm Return Page – Double-click on an item to confirm the return
+![librarian-adminConfirmReturn](https://user-images.githubusercontent.com/118571302/206303402-c17ebd65-de03-42a5-9e64-eb8b4beb6222.PNG)
 
+## Librarians/Admin Current Reserved Page - View all items currently reserved by members
+![librarian-adminReserved](https://user-images.githubusercontent.com/118571302/206303505-8875f50e-e384-4a5b-a730-0385f5a815c5.PNG)
 
+## Librarians/Admin Issue/Remove Reserve Page – Double-click on an item to issue or remove the reserve
+![librarian-adminIssue](https://user-images.githubusercontent.com/118571302/206303609-4e3bcd4b-11a0-4187-b7c5-3362c172d3cb.PNG)
 
+## Librarians/Admin Add/Remove Page - View the catalog and add a new item, remove an item, or update an item
+![add-remove](https://user-images.githubusercontent.com/118571302/206307429-3b5d4384-72b6-40b6-ac13-d9f5ad40f015.PNG)
 
+## Librarians/Admin Update or Remove Choice Page – Double-click on an item and choose whether to update or remove
+![update-remove](https://user-images.githubusercontent.com/118571302/206307560-3045f1f1-a59b-43b0-be90-a3e6c0a1a689.PNG)
+![removeMat](https://user-images.githubusercontent.com/118571302/206307606-55d1845e-92d4-4612-a066-6950c74e26e4.PNG)
+![updateMat](https://user-images.githubusercontent.com/118571302/206307620-828b64b7-90ea-4c46-b617-da20d7ef47b6.PNG)
 
+## Librarians/Admin Add Material Page - Click on the 'Add' button in the top right to add a new item
+![addMat](https://user-images.githubusercontent.com/118571302/206307708-cd8124c7-23d8-4788-8aec-172de283b4c7.PNG)
 
+## Librarians/Admin Generate a Report Page - View all members and generate a history report on that member
+![userReport](https://user-images.githubusercontent.com/118571302/206307899-9a5a2879-f53c-4ef6-8d33-ad39a5f57b5b.PNG)
 
+## Librarians/Admin User Report Page – Double-click a member to view their history
+![userHistory](https://user-images.githubusercontent.com/118571302/206307989-510a8d91-b037-4c1d-b8ee-e7528a298a06.PNG)
 
+## Admin Accounts Page - View all accounts in the system and update, remove, or add a new account
+![adminAccs](https://user-images.githubusercontent.com/118571302/206308111-e4474761-8e37-4a21-9a21-1a27fe3373d7.PNG)
+![update-removeAccs](https://user-images.githubusercontent.com/118571302/206308125-be874357-ee41-4579-a27b-69623044cbc4.PNG)
+![removeAcc](https://user-images.githubusercontent.com/118571302/206308149-1d91759c-1109-46a4-ab22-d152c49facde.PNG)
+![updateAcc](https://user-images.githubusercontent.com/118571302/206308167-1b4cd75c-b6f7-4f2b-9722-0e8202f78d25.PNG)
+
+## Admin Add Account Page - Add an account by clicking the 'Add' button in the top right
+![addAcc](https://user-images.githubusercontent.com/118571302/206308232-cffb451b-3705-4b51-a4eb-54c64c164b41.PNG)
