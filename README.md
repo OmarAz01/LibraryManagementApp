@@ -28,11 +28,15 @@ Notes:
 - There are no foreign keys
 
 # How to run
-- Download MySQL Workbench 8.0.31 here: https://dev.mysql.com/downloads/workbench/
-- Download MySQL Community Server v8.0.31 here: https://dev.mysql.com/downloads/mysql/
-- Download MySQL Connector here: https://dev.mysql.com/downloads/connector/j/
-- Download JavaFX 19 here: https://gluonhq.com/products/javafx/
-- Create a schema named libraryappdb with root as the username and Root12345 as the password
+- Download javafx-sdk-19 folder from this repo
+- Download MySQL Installer here (Download the first option): https://dev.mysql.com/downloads/installer/
+- Once it is installed run it and select the 'Custom' setup type
+- From there you want to drop down 'MySQL servers' until you find 'MySQL server 8.0.31', select it and move it over to the right
+- Do the same thing for 'MySQL Workbench' under 'Applications'
+- When both of the products are moved over to the right click next
+- Continue with the default options until you reach the 'Accounts and Roles' section, from there set the password to Root12345
+- Execute the setup
+- Launch MySQL Workbench and create a new schema called libraryappdb
 - Copy and paste this into the schema:
 
 CREATE TABLE `accounts` (
@@ -74,16 +78,18 @@ CREATE TABLE `records` (
   PRIMARY KEY (`ref_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
-- Once the tables are created you would need to add a admin account by pasting this:
+- Once the tables are created you need to add an admin account by pasting the following ino the schema:
 - INSERT INTO `libraryappdb`.`accounts` (`account_type`, `f_name`, `l_name`, `username`, `password`, `email`) VALUES ('Admin', 'admin', 'admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin');
 - This will create an admin account with username admin and password admin
 
 - Finally, just download the jar file. Once downloaded open the javafx 19 folder that you downloaded earlier and copy the path to the lib folder.
-- Open command prompt cd to the location of the lib folder and jar file and type java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
+- For simplicity put the jar file and javafx-sdk-19 folder in the downloads folder. Open command prompt and type 'cd downloads' then copy and paste the following
+- java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
+- Replace the "Path ti lib folder here" with the path to the lib folder that is located inside the javafx-sdk-19 folder (Keep the quotation marks around the path)
 - Press enter and the program should run
 
 ### Note
-- I’ve included a CSV file in the repo that you can use to populate the library material table. 
+- I’ve included a CSV file in the repo that you can use to populate the library catalog. 
 - To do this you need to download the csv file, open MySQL Workbench, click on the libraryappdb schema, right click the on Tables, select Table Data Import Wizard, 
 import the CSV file click next, select the material table, fix the destination columns, and press next.
 
