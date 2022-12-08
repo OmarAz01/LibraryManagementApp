@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import models.Accounts;
 
@@ -31,7 +32,7 @@ public class admin_update_acc_controller implements Initializable {
 	private Button update_btn;
 	
 	@FXML
-	private TextField tf_password;
+	private PasswordField tf_password;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class changePass_controller implements Initializable {
@@ -18,10 +19,10 @@ public class changePass_controller implements Initializable {
 	private Button changePass_btn;
 
 	@FXML
-	private TextField newPass_tf;
+	private PasswordField newPass_tf;
 
 	@FXML
-	private TextField oldPass_tf;
+	private PasswordField oldPass_tf;
 
 	@FXML
 	private TextField tf_username;
