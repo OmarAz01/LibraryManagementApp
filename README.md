@@ -29,13 +29,7 @@ Notes:
 
 # How to run
 - Download javafx-sdk-19 folder from this repo
-- Download MySQL Installer here (Download the first option): https://dev.mysql.com/downloads/installer/
-- Once it is installed run it and select the 'Custom' setup type
-- From there you want to drop down 'MySQL servers' until you find 'MySQL server 8.0.31', select it and move it over to the right
-- Do the same thing for 'MySQL Workbench' under 'Applications'
-- When both of the products are moved over to the right click next
-- Continue with the default options until you reach the 'Accounts and Roles' section, from there set the password to Root12345
-- Execute the setup
+- Download MySQL and set the username to root and password to Root12345
 - Launch MySQL Workbench and create a new schema called libraryappdb
 - Copy and paste this into the schema:
 
@@ -85,14 +79,11 @@ CREATE TABLE `records` (
 - Finally, just download the jar file. Once downloaded open the javafx 19 folder that you downloaded earlier and copy the path to the lib folder.
 - For simplicity put the jar file and javafx-sdk-19 folder in the downloads folder. Open command prompt and type 'cd downloads' then copy and paste the following
 - java --module-path "Path to lib folder here" --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar LMA.jar
-- Replace the "Path ti lib folder here" with the path to the lib folder that is located inside the javafx-sdk-19 folder (Keep the quotation marks around the path)
+- Replace the "Path to lib folder here" with the path to the lib folder that is located inside the javafx-sdk-19 folder (Keep the quotation marks around the path)
 - Press enter and the program should run
 
 ### Note
 - I’ve included a CSV file in the repo that you can use to populate the library catalog. 
-- To do this you need to download the csv file, open MySQL Workbench, click on the libraryappdb schema, right click the on Tables, select Table Data Import Wizard, 
-import the CSV file click next, select the material table, fix the destination columns, and press next.
-
 
 # Snapshots
 
